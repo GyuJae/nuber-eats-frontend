@@ -10,7 +10,8 @@ import {
   LoginMutationVariables,
 } from "../../__generated__/LoginMutation";
 import FormError from "../../components/form-error";
-import { isLoggedInVar } from "../../apollo";
+import { authTokenVar, isLoggedInVar } from "../../apollo";
+import { LOCALSTORAGE_TOKEN } from "../../contants";
 
 interface ILoginInputs {
   email: string;
@@ -22,9 +23,10 @@ const Login = () => {
     const {
       login: { ok, token },
     } = data;
-    if (ok) {
+    if (ok && token) {
+      localStorage.setItem(LOCALSTORAGE_TOKEN, token);
+      authTokenVar(token);
       isLoggedInVar(true);
-      console.log(token);
     }
   };
   const [login, { loading, data: LoginMutationResult }] = useMutation<
@@ -65,6 +67,7 @@ const Login = () => {
         loading={loading}
         formName="login"
         inputList={["email", "password"]}
+        required={true}
       />
       {LoginMutationResult?.login?.error && (
         <FormError errorMessage={LoginMutationResult.login.error} />

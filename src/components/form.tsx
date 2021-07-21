@@ -5,6 +5,7 @@ import {
   UseFormHandleSubmit,
   UseFormRegister,
 } from "react-hook-form";
+import { FaSpinner } from "react-icons/fa";
 import { UserRole } from "../__generated__/globalTypes";
 import Input from "./input";
 import Select from "./select";
@@ -18,6 +19,7 @@ interface IForm {
   loading: boolean;
   formName: string;
   inputList: string[];
+  required: boolean;
 }
 
 const Form: React.FC<IForm> = ({
@@ -28,6 +30,7 @@ const Form: React.FC<IForm> = ({
   loading,
   formName,
   inputList,
+  required,
 }) => (
   <div className="w-screen flex flex-col justify-center items-center">
     <Title />
@@ -51,6 +54,7 @@ const Form: React.FC<IForm> = ({
               register={register}
               errors={errors}
               placeholder={inputName === "password" ? "*****" : inputName}
+              required={required}
             />
           )
         )}
@@ -59,7 +63,15 @@ const Form: React.FC<IForm> = ({
             className="w-full transition duration-500 bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
             type="submit"
           >
-            {loading ? "Loading..." : formName.toUpperCase()}
+            {loading ? (
+              <div className="flex justify-center items-center">
+                <span className="flex font-medium animate-spin text-2xl tracking-wide">
+                  <FaSpinner />
+                </span>
+              </div>
+            ) : (
+              formName.toUpperCase()
+            )}
           </button>
         </div>
       </form>

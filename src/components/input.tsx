@@ -7,6 +7,7 @@ interface IInput {
   register: UseFormRegister<any>;
   errors: DeepMap<any, any>;
   placeholder: string;
+  required: boolean;
 }
 
 const regex =
@@ -18,6 +19,7 @@ const Input: React.FC<IInput> = ({
   register,
   errors,
   placeholder,
+  required,
 }) => {
   const errorsList = Object.keys(errors);
   let errorMessage;
@@ -42,7 +44,7 @@ const Input: React.FC<IInput> = ({
         type={inputName === "password" ? "password" : undefined}
         placeholder={placeholder}
         {...register(inputName, {
-          required: true,
+          ...(required && { required: true }),
           ...(inputName === "email" && { pattern: regex }),
         })}
       />

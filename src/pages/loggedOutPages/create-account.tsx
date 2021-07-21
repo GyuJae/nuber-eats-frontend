@@ -24,6 +24,7 @@ const CreateAccount = () => {
       createAccount: { ok },
     } = data;
     if (ok) {
+      alert("Account Created! Log in now!");
       history.push("/login");
     }
   };
@@ -66,6 +67,7 @@ const CreateAccount = () => {
         loading={loading}
         formName="Create Account"
         inputList={["email", "password", "role"]}
+        required={true}
       />
       {CreateAccountMutationResult?.createAccount?.error && (
         <FormError
@@ -74,7 +76,7 @@ const CreateAccount = () => {
       )}
       <div className="w-full flex justify-center items-center mr-2 pb-10">
         <span className="mr-2">Already use Uber? {"   "}</span>
-        <Link to="/login" className="text-green-700 hover:underline">
+        <Link to="/" className="text-green-700 hover:underline">
           Sign in
         </Link>
       </div>
