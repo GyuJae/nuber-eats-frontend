@@ -11,13 +11,11 @@ const SEARCHRESTAURANTS_QUERY = gql`
         id
         name
         coverImg
-        address
         category {
           name
         }
-        menu {
-          price
-        }
+        address
+        isPromoted
       }
     }
   }

@@ -14,19 +14,14 @@ export interface SearchRestaurantsQuery_searchRestaurants_restaurants_category {
   name: string;
 }
 
-export interface SearchRestaurantsQuery_searchRestaurants_restaurants_menu {
-  __typename: "Dish";
-  price: number;
-}
-
 export interface SearchRestaurantsQuery_searchRestaurants_restaurants {
   __typename: "Restaurant";
   id: number;
   name: string;
   coverImg: string;
-  address: string;
   category: SearchRestaurantsQuery_searchRestaurants_restaurants_category | null;
-  menu: SearchRestaurantsQuery_searchRestaurants_restaurants_menu[];
+  address: string;
+  isPromoted: boolean;
 }
 
 export interface SearchRestaurantsQuery_searchRestaurants {

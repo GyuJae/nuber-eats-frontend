@@ -2,22 +2,29 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 import { FaBars } from "react-icons/fa";
 import { FaUserAlt } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 interface ISearchRestaurants {
-  query: string;
+  term: string;
 }
 
 const Header = () => {
-  const onSubmit: SubmitHandler<ISearchRestaurants> = (data) =>
-    console.log(data);
-
   const {
     register,
     handleSubmit,
-    // getValues,
+    getValues,
     // formState: { errors },
   } = useForm<ISearchRestaurants>();
+  const history = useHistory();
+
+  const onSubmit: SubmitHandler<ISearchRestaurants> = () => {
+    const { term } = getValues();
+    history.push({
+      pathname: "/search",
+      search: `?term=${term}`,
+    });
+  };
+
   return (
     <div className="flex h-20 w-full justify-evenly  items-center border-b-2 border-gray-200  ">
       <FaBars className="" />
@@ -31,8 +38,8 @@ const Header = () => {
         <input
           type="text"
           placeholder="Enter restaurants name"
-          {...register("query")}
-          className="mr-2 px-20 py-1 leading-tight shadow-outline"
+          {...register("term")}
+          className="mr-2 border-b-2 bg-gray-100 px-36 py-2 outline-none leading-tight shadow-outline"
         />
       </form>
       <Link to="/edit-profile">
