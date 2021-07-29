@@ -9,42 +9,49 @@ import RestaurantFindById from "../pages/loggedInPages/client/findRestaurantById
 import Restaurants from "../pages/loggedInPages/client/restaurants";
 import Search from "../pages/loggedInPages/client/search";
 import EditProfile from "../pages/loggedInPages/edit-profile";
+import AddDish from "../pages/loggedInPages/owner/AddDish";
+import CreateRestaurant from "../pages/loggedInPages/owner/create-restaurant";
+import MyRestaurantContainer from "../pages/loggedInPages/owner/my-restaurant";
+import MyRestaurants from "../pages/loggedInPages/owner/my-restaurants";
 import VerifyEmail from "../pages/loggedInPages/verify-email";
 
-const ClientRoutes = [
-  <Route key={1} path="/" exact>
-    <Restaurants />
-  </Route>,
-  <Route key={2} path="/edit-profile">
-    <EditProfile />
-  </Route>,
-  <Route key={3} path="/search">
-    <Search />
-  </Route>,
-  <Route key={4} path="/category">
-    <RestaurantsByCategory />
-  </Route>,
-  <Route key={5} path="/restaurants/:id">
-    <RestaurantFindById />
-  </Route>,
+const clientRoutes = [
+  {
+    path: "/",
+    component: <Restaurants />,
+  },
+  {
+    path: "/search",
+    component: <Search />,
+  },
+  {
+    path: "/category",
+    component: <RestaurantsByCategory />,
+  },
+  {
+    path: "/restaurants/:id",
+    component: <RestaurantFindById />,
+  },
 ];
 
-const OwnerRoutes = [
-  <Route key={1} path="/" exact>
-    <Restaurants />
-  </Route>,
-  <Route key={2} path="/edit-profile" exact>
-    <EditProfile />
-  </Route>,
+const ownerRoutes = [
+  { path: "/", component: <MyRestaurants /> },
+  { path: "/create-restaurant", component: <CreateRestaurant /> },
+  {
+    path: "/restaurants/:id",
+    component: <MyRestaurantContainer />,
+  },
+  {
+    path: "/restaurants/:id/addDish",
+    component: <AddDish />,
+  },
 ];
 
-const DeliveryRoutes = [
-  <Route key={1} path="/" exact>
-    <Restaurants />
-  </Route>,
-  <Route key={2} path="/edit-profile" exact>
-    <EditProfile />
-  </Route>,
+const commonRoutes = [
+  {
+    path: "/edit-profile",
+    component: <EditProfile />,
+  },
 ];
 
 const LoggedInRouter = () => {
@@ -58,9 +65,23 @@ const LoggedInRouter = () => {
         <Router>
           <Header />
           <Switch>
-            {data.me.role === "Client" && ClientRoutes}
-            {data.me.role === "Owner" && OwnerRoutes}
-            {data.me.role === "Delivery" && DeliveryRoutes}
+            {data.me.role === "Client" &&
+              clientRoutes.map((route) => (
+                <Route exact key={route.path} path={route.path}>
+                  {route.component}
+                </Route>
+              ))}
+            {data.me.role === "Owner" &&
+              ownerRoutes.map((route) => (
+                <Route exact key={route.path} path={route.path}>
+                  {route.component}
+                </Route>
+              ))}
+            {commonRoutes.map((route) => (
+              <Route exact key={route.path} path={route.path}>
+                {route.component}
+              </Route>
+            ))}
             <Route>
               <NotFound />
             </Route>

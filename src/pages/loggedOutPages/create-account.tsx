@@ -25,7 +25,7 @@ const CreateAccount = () => {
     } = data;
     if (ok) {
       alert("Account Created! Log in now!");
-      history.push("/login");
+      history.push("/");
     }
   };
   const [createAccount, { loading, data: CreateAccountMutationResult }] =
