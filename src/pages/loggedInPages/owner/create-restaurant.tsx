@@ -19,8 +19,8 @@ interface ICreateRestaurant {
 const CreateRestaurant = () => {
   const history = useHistory();
   const onCompleted = () => {
+    history.push("/");
     history.go(0);
-    history.replace("/");
   };
   const [createRestaurantMutation, { loading, data }] = useMutation<
     CreateRestaurantMutation,

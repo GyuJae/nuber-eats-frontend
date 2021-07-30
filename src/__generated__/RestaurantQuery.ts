@@ -23,16 +23,17 @@ export interface RestaurantQuery_findRestaurantById_restaurant_menu_options_choi
 export interface RestaurantQuery_findRestaurantById_restaurant_menu_options {
   __typename: "DishOption";
   name: string;
-  choices: RestaurantQuery_findRestaurantById_restaurant_menu_options_choices[] | null;
   extra: number | null;
+  choices: RestaurantQuery_findRestaurantById_restaurant_menu_options_choices[] | null;
 }
 
 export interface RestaurantQuery_findRestaurantById_restaurant_menu {
   __typename: "Dish";
+  id: number;
   name: string;
-  description: string;
-  photo: string | null;
   price: number;
+  photo: string | null;
+  description: string;
   options: RestaurantQuery_findRestaurantById_restaurant_menu_options[] | null;
 }
 

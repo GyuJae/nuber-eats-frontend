@@ -1,4 +1,5 @@
 import { gql } from "@apollo/client";
+import { DISH_FRAGMENT } from "../fragment";
 
 const RESTAURANT_QUERY = gql`
   query RestaurantQuery($input: RestaurantInput!) {
@@ -13,22 +14,12 @@ const RESTAURANT_QUERY = gql`
           name
         }
         menu {
-          name
-          description
-          photo
-          price
-          options {
-            name
-            choices {
-              name
-              extra
-            }
-            extra
-          }
+          ...DishParts
         }
       }
     }
   }
+  ${DISH_FRAGMENT}
 `;
 
 export default RESTAURANT_QUERY;

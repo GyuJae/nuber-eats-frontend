@@ -1,9 +1,4 @@
 import { gql } from "@apollo/client";
-import {
-  DISH_FRAGMENT,
-  RESTAURANT_FRAGMENT,
-  ORDERS_FRAGMENT,
-} from "../fragment";
 
 const MY_RESTAURANT_QUERY = gql`
   query MyRestaurant($input: MyRestaurantInput!) {
@@ -11,19 +6,25 @@ const MY_RESTAURANT_QUERY = gql`
       ok
       error
       restaurant {
-        ...RestaurantParts
-        menu {
-          ...DishParts
+        id
+        name
+        address
+        category {
+          name
         }
-        orders {
-          ...OrderParts
+        menu {
+          id
+          name
+          description
+          price
+          options {
+            name
+            extra
+          }
         }
       }
     }
   }
-  ${RESTAURANT_FRAGMENT}
-  ${DISH_FRAGMENT}
-  ${ORDERS_FRAGMENT}
 `;
 
 export default MY_RESTAURANT_QUERY;

@@ -3,6 +3,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { FaBars } from "react-icons/fa";
 import { FaUserAlt } from "react-icons/fa";
 import { Link, useHistory } from "react-router-dom";
+import { LOCALSTORAGE_TOKEN } from "../contants";
 
 interface ISearchRestaurants {
   term: string;
@@ -25,6 +26,11 @@ const Header = () => {
     });
   };
 
+  const LogOut = () => {
+    localStorage.removeItem(LOCALSTORAGE_TOKEN);
+    history.go(0);
+  };
+
   return (
     <div className="flex h-20 w-full justify-evenly  items-center border-b-2 border-gray-200  ">
       <FaBars className="" />
@@ -45,6 +51,7 @@ const Header = () => {
       <Link to="/edit-profile">
         <FaUserAlt />
       </Link>
+      <button onClick={LogOut}>Log Out</button>
     </div>
   );
 };
